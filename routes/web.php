@@ -22,5 +22,10 @@ use App\Http\Controllers\PostsController;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/admin',[AdminsController::class,'index'])->name('admin.index');
-Route::get('/post',[PostsController::class,'show'])->name('post');
+Route::get('/post/{id}',[PostsController::class,'show'])->name('post');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/admin',[AdminsController::class,'index'])->name('admin.index');
+    Route::get('/admin/posts/create',[PostsController::class,'create'])->name('post.create');
+
+});

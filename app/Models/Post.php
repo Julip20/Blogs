@@ -9,7 +9,11 @@ use App\Models\User;
 class Post extends Model
 {
     use HasFactory;
-    protected $guarded =[];
+    protected $fillable =[
+        'title',
+        'post_image',
+        'body',
+    ];
 
     public function user(){
       return $this->belongsTo(User::class);

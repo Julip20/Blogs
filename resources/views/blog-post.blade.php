@@ -1,6 +1,8 @@
 <x-home-master>
 
     @section('content')
+
+
         <!-- Title -->
             <h1 class="mt-4">{{$post->title}}</h1>
 
@@ -13,7 +15,7 @@
             <hr>
 
             <!-- Date/Time -->
-            <p>Posted on {{$post->created_at->diffForHumans()}} </p>
+            <p>Posted on {{$post->created_at->diffForHumans() }} </p>
 
             <hr>
 
@@ -24,6 +26,7 @@
 
             <!-- Post Content -->
             <p>{{$post->body}}</p>
+
 
             <hr>
 

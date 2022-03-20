@@ -33,9 +33,9 @@ class PostsController extends Controller
        $user = User::find(1);
 
 $post= new Post();
-$post= $request->input('title');
-$post= $request->input('post_image');
-$post= $request->input('body');
+$post->title= $request->input('title');
+$post->post_image= $request->input('post_image');
+$post->body= $request->input('body');
 
 $user->posts()->save($post);
 // $user->posts()->create($post);

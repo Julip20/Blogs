@@ -34,8 +34,27 @@ class PostsController extends Controller
 
 $post= new Post();
 $post->title= $request->input('title');
-$post->post_image= $request->input('post_image');
+
+if($request->hasfile('post_image'))
+{
+    $file = $request->file('post_image');
+    $extenstion = $file->getClientOriginalExtension();
+    $filename = time().'.'.$extenstion;
+    $file->move('uploads/images/', $filename);
+    $post->post_image = $filename;
+}
+
+// if($request->hasFile('post_image'))
+// {
+//     $file= $request->file('post_image');
+//     $extension = $file->getClientOriginalExtension();
+//     $filename=time().'.'.$extension;
+//     $file->move('/uploads/images/', $filename);
+//     $post->post_image =$filename;
+// }
+
 $post->body= $request->input('body');
+
 
 $user->posts()->save($post);
 // $user->posts()->create($post);

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
+
 class PostsController extends Controller
 {
 
@@ -51,25 +54,19 @@ if($request->hasfile('post_image'))
     $post->post_image = $filename;
 }
 
-// if($request->hasFile('post_image'))
-// {
-//     $file= $request->file('post_image');
-//     $extension = $file->getClientOriginalExtension();
-//     $filename=time().'.'.$extension;
-//     $file->move('/uploads/images/', $filename);
-//     $post->post_image =$filename;
-// }
+
 
 $post->body= $request->input('body');
-
-
 $user->posts()->save($post);
+return back();
+}
 
+  public function destroy(Post $post){
 
+   $post->delete();
+   Session::flash('message','Post was deleted');
+   return back();
+  }
 
-        return back();
-
-    
-    }
 }
 

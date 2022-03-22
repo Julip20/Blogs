@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -12,7 +13,11 @@ class PostsController extends Controller
 {
 
    public function index(){
-       $posts =Post::all();
+
+    $posts= Auth::user()->posts;
+    
+
+    //    $posts =Post::all();
 
        return view('admin.posts.index',compact('posts'));
    }
@@ -57,10 +62,16 @@ if($request->hasfile('post_image'))
 
 
 $post->body= $request->input('body');
-$user->posts()->save($post);
+Auth::user()->posts->save($post);
 Session::flash('post-created-message','Post was created');
 
 return redirect()->route('post.index');
+}
+
+public function edit(Post $post){
+ 
+    return view('admin.posts.edit', compact('post'));
+
 }
 
   
@@ -71,6 +82,28 @@ public function destroy(Post $post){
    Session::flash('message','Post was deleted');
    return back();
   }
+// public function update(Post $post, Request $request){
+//     $request->validate([
+//         'title'=>'required',
+//         'post_image'=>'file',
+//         'body'=>'required'
+//     ]);
+//     $user = User::find(1);
 
+//     $post= new Post();
+//     $post->title= $request->input('title');
+    
+//     if($request->hasfile('post_image'))
+//     {
+//         $file = $request->file('post_image');
+//         $extenstion = $file->getClientOriginalExtension();
+//         $filename = time().'.'.$extenstion;
+//         $file->move('uploads/images/', $filename);
+//         $post->post_image = $filename;
+//     }
+    
+//     $user->posts()->update($post);
+    
+// }
 }
 

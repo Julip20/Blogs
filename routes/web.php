@@ -27,7 +27,7 @@ Route::get('/post/{id}',[PostsController::class,'show'])->name('post');
 Route::middleware('auth')->group(function(){
     Route::get('/admin',[AdminsController::class,'index'])->name('admin.index');
 
-
+    Route::get('/admin/poster',[PostsController::class,'index'])->name('post.index');
     Route::post('/admin/',[PostsController::class,'store'])->name('post.store');
     Route::get('/admin/posts/create',[PostsController::class,'create'])->name('post.create');
 

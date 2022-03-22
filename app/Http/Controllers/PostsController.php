@@ -7,6 +7,13 @@ use App\Models\Post;
 use App\Models\User;
 class PostsController extends Controller
 {
+
+   public function index(){
+       $posts =Post::all();
+
+       return view('admin.posts.index',compact('posts'));
+   }
+
     public function show($id){
 
        $post= Post::findOrFail($id);
@@ -57,19 +64,12 @@ $post->body= $request->input('body');
 
 
 $user->posts()->save($post);
-// $user->posts()->create($post);
+
 
 
         return back();
 
-        // $request->validate([
-        //     'user_id'=>'required',
-        //     'title'=>'required',
-        //     'post_image'=>'required',
-        //     'body'=>'required'
-        // ]);
-        // Post::create($request->all());
-        // return back();
+    
     }
 }
 

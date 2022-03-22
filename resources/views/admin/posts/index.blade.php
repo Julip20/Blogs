@@ -5,8 +5,9 @@
     
    @if (Session::has('message'))
    <div class="alert alert-danger">{{ Session::get('message') }}</div>
-
-       
+  
+   @elseif (Session::has('post-created-message'))
+       <div class="alert alert-success">{{ Session::get('post-created-message') }}</div>
    @endif
    <div class="card shadow mb-4">
     <div class="card-header py-3">

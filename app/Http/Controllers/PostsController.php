@@ -58,10 +58,14 @@ if($request->hasfile('post_image'))
 
 $post->body= $request->input('body');
 $user->posts()->save($post);
-return back();
+Session::flash('post-created-message','Post was created');
+
+return redirect()->route('post.index');
 }
 
-  public function destroy(Post $post){
+  
+
+public function destroy(Post $post){
 
    $post->delete();
    Session::flash('message','Post was deleted');
